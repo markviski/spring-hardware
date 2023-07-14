@@ -1,0 +1,46 @@
+apply plugin: 'war'
+
+dependencies {
+    // https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api
+    compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api', version: '5.0.0'
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.32'
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    runtimeOnly group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.6'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.0'
+
+    implementation project(":vmim1980-backend")
+}
+
+def deploymentName = 'vmim1980-web'
+
+def tomcatHome = System.getenv('CATALINA_HOME')
+logger.quiet("Tomcat home detected as '${tomcatHome}'")
+
+
+task deploy(type: Copy, dependsOn: 'war') {
+    doFirst {
+        if (!tomcatHome) {
+            throw new InvalidUserDataException("Tomcat home (CATALINA_HOME) not set")
+        }
+    }
+
+    from war.archiveFile
+
+    rename war.archiveFileName.get(), "${deploymentName}.war"
+
+    into "${tomcatHome}/webapps"
+}
+
+
+task undeploy(type: Delete) {
+
+    doFirst {
+        if (!tomcatHome) {
+            throw new InvalidUserDataException("Tomcat home (CATALINA_HOME) not set")
+        }
+    }
+
+    delete "${tomcatHome}/webapps/${deploymentName}.war"
+}

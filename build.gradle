@@ -1,0 +1,23 @@
+allprojects {
+    group 'edu.bbte.idde.vmim1980'
+    version '1.0-SNAPSHOT'
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+
+    repositories {
+        mavenCentral()
+    }
+
+    apply from: "$rootDir/lint.gradle"
+
+    dependencies {
+        implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.3'
+        runtimeOnly group: 'ch.qos.logback', name: 'logback-classic', version: '1.4.4'
+        implementation group: 'org.freemarker', name: 'freemarker', version: '2.3.31'
+        implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+        annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+    }
+}

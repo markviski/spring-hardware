@@ -1,0 +1,22 @@
+plugins {
+    id "maven-publish"
+}
+
+dependencies {
+    runtimeOnly group: 'com.mysql', name: 'mysql-connector-j', version: '8.0.31'
+    implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.14.0'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.14.0'
+    implementation group: 'com.zaxxer', name: 'HikariCP', version: '5.0.1'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'edu.bbte.idde.vmim1980.backend'
+            artifactId = 'vmim1980-backend'
+            version = '1.0.0-SNAPSHOT'
+
+            from components.java
+        }
+    }
+}

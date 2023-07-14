@@ -1,0 +1,5 @@
+rootProject.name = 'lab-vmim1980'
+include 'vmim1980-backend'
+include 'vmim1980-desktop'
+include 'vmim1980-web'
+include 'vmim1980-spring'

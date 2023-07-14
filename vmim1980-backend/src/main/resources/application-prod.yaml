@@ -1,0 +1,6 @@
+daoType: jdbc
+daoUrl: jdbc:mysql://localhost:3306/iddehardware
+daoUser: root
+daoPass: rootsql
+daoPoolsize: 16
+daoDriver: com.mysql.jdbc.Driver

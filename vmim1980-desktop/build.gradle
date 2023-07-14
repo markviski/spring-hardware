@@ -1,0 +1,24 @@
+plugins {
+    id "application"
+    id "maven-publish"
+}
+
+application {
+    mainClass = "edu.bbte.idde.vmim1980.desktop.HardwareDesktop"
+}
+
+dependencies {
+    implementation project(":vmim1980-backend")
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'edu.bbte.idde.vmim1980.desktop'
+            artifactId = 'vmim1980-desktop'
+            version = '1.0.0-SNAPSHOT'
+
+            from components.java
+        }
+    }
+}
